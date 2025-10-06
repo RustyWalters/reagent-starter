@@ -11,16 +11,22 @@
  
 (defn simple-component []
   [:div
-   [:p "I am a component"]
+   [:p "I am a parent component"]
    [:p
     "I have " [:strong "bold"
-                       [:span {:style {:color "red"}} " and red "] "text."]]
+                       [:span {:style {:color "orange"}} " and red "] "text."]]
    [another-component]])
 
 
-(defn ^:export run []
+(defn mount-root []
   (rdom/render [simple-component]
-            (.getElementById js/document "app")))
+               (.getElementById js/document "app")))
+
+(defn ^:export run []
+  (mount-root))
+
+(defn ^:dev/after-load reload []
+  (mount-root))
 
 (comment
   (js/alert "Hello, World!")
